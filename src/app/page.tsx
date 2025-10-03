@@ -1,70 +1,76 @@
-import Image from 'next/image';
+import { ArrowRight, BookOpen, Shield, Zap } from 'lucide-react';
+import Link from 'next/link';
+import { FeatureSection } from '@/components/landing/FeatureSection';
+import { Footer } from '@/components/landing/Footer';
+import { HeroSection } from '@/components/landing/HeroSection';
+import { LogoClouds } from '@/components/landing/LogoClouds';
+
+const features = [
+    {
+        description: 'Access Shamela, Ketab Online, and Turath libraries through one simple API',
+        icon: BookOpen,
+        title: 'Unified Access',
+    },
+    { description: 'Built on Next.js 15 and Bun for maximum performance', icon: Zap, title: 'Lightning Fast' },
+    { description: 'Enterprise-grade security with Supabase and Unkey', icon: Shield, title: 'Secure & Reliable' },
+];
 
 export default function Home() {
     return (
-        <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-            <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-                <Image className="dark:invert" src="/next.svg" alt="Next.js logo" width={180} height={38} priority />
-                <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-                    <li className="mb-2 tracking-[-.01em]">
-                        Get started by editing{' '}
-                        <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-                            src/app/page.tsx
-                        </code>
-                        .
-                    </li>
-                    <li className="tracking-[-.01em]">Save and see your changes instantly.</li>
-                </ol>
-
-                <div className="flex gap-4 items-center flex-col sm:flex-row">
-                    <a
-                        className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        <Image className="dark:invert" src="/vercel.svg" alt="Vercel logomark" width={20} height={20} />
-                        Deploy now
-                    </a>
-                    <a
-                        className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-                        href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Read our docs
-                    </a>
+        <div className="min-h-screen bg-gradient-to-b from-background to-secondary">
+            <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                    <div className="flex items-center gap-2">
+                        <BookOpen className="h-8 w-8 text-primary" />
+                        <span className="font-bold text-xl">Al-Jadwal</span>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <Link
+                            href="/pricing"
+                            className="hidden text-foreground/80 transition-colors hover:text-foreground sm:block"
+                        >
+                            Pricing
+                        </Link>
+                        <Link
+                            href="/auth/login"
+                            className="rounded-md px-4 py-2 font-medium text-sm transition-colors hover:bg-secondary"
+                        >
+                            Sign In
+                        </Link>
+                        <Link
+                            href="/auth/signup"
+                            className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
+                        >
+                            Get Started
+                            <ArrowRight className="h-4 w-4" />
+                        </Link>
+                    </div>
                 </div>
-            </main>
-            <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/file.svg" alt="File icon" width={16} height={16} />
-                    Learn
-                </a>
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/window.svg" alt="Window icon" width={16} height={16} />
-                    Examples
-                </a>
-                <a
-                    className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-                    href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <Image aria-hidden src="/globe.svg" alt="Globe icon" width={16} height={16} />
-                    Go to nextjs.org →
-                </a>
-            </footer>
+            </nav>
+
+            <HeroSection />
+
+            <FeatureSection features={features} />
+
+            <LogoClouds />
+
+            <div className="border-t bg-secondary/50 py-16">
+                <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+                    <h2 className="mb-4 font-bold text-3xl tracking-tight">Ready to get started?</h2>
+                    <p className="mb-8 text-foreground/80 text-lg">
+                        Join developers building the next generation of Islamic applications
+                    </p>
+                    <Link
+                        href="/auth/signup"
+                        className="inline-flex items-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-lg text-primary-foreground transition-colors hover:bg-primary/90"
+                    >
+                        Start Building Today
+                        <ArrowRight className="h-5 w-5" />
+                    </Link>
+                </div>
+            </div>
+
+            <Footer />
         </div>
     );
 }
