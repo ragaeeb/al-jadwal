@@ -9,21 +9,19 @@ import PowerOffSlide from '@/components/smoothui/ui/PowerOffSlide';
 import { Input } from '@/components/ui/input';
 import { createClient } from '@/lib/supabase/client';
 
-export default function LoginPage() {
+export default function SignupPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const router = useRouter();
 
     const handleAuth = async () => {
         setLoading(true);
         setError(null);
-        setSuccessMessage(null);
         try {
             const supabase = createClient();
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
+            const { error } = await supabase.auth.signUp({ email, password });
             if (error) {
                 throw error;
             }
@@ -44,7 +42,7 @@ export default function LoginPage() {
                         <Image src="/icon.svg" alt="al-Jadwal" width={128} height={128} />
                     </div>
                     <h1 className="font-bold text-3xl">Al-Jadwal</h1>
-                    <p className="mt-2 text-muted-foreground">Sign in to your account</p>
+                    <p className="mt-2 text-muted-foreground">Create your account</p>
                 </div>
 
                 <form onSubmit={handleAuth} className="mt-8 space-y-6">
@@ -67,14 +65,17 @@ export default function LoginPage() {
                             minLength={6}
                         />
                     </div>
-                    {successMessage && <div className="text-green-600 text-sm">{successMessage}</div>}
                     {error && <div className="text-red-600 text-sm">{error}</div>}
-                    <PowerOffSlide onPowerOff={handleAuth} label="Slide to log in" powerOffLabel="Logging in..." />
+                    <PowerOffSlide
+                        onPowerOff={handleAuth}
+                        label="Slide to sign up"
+                        powerOffLabel="Creating account..."
+                    />
 
                     <div className="text-center text-muted-foreground text-sm">
-                        Don't have an account?{' '}
-                        <Link href="/auth/signup" className="text-primary hover:underline">
-                            Sign up
+                        Already have an account?{' '}
+                        <Link href="/auth/login" className="text-primary hover:underline">
+                            Sign in
                         </Link>
                     </div>
                 </form>
