@@ -11,11 +11,13 @@ export const useToast = () => {
     const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
     const toast = useCallback((message: Omit<ToastMessage, 'id'>) => {
-        const id = Math.random().toString(36).substring(7);
+        const id =
+            typeof crypto !== 'undefined' && 'randomUUID' in crypto
+                ? crypto.randomUUID()
+                : Math.random().toString(36).slice(2);
         const newToast = { ...message, id };
 
         setToasts((prev) => [...prev, newToast]);
-
         setTimeout(() => {
             setToasts((prev) => prev.filter((t) => t.id !== id));
         }, 5000);
