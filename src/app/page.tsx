@@ -2,8 +2,8 @@ import { ArrowRight, BookOpen, Shield, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { FeatureSection } from '@/components/landing/FeatureSection';
 import { Footer } from '@/components/landing/Footer';
-import { HeroSection } from '@/components/landing/HeroSection';
-import { LogoClouds } from '@/components/landing/LogoClouds';
+import { HeroShowcase } from '@/components/landing/HeroSection';
+import { LogoCloudAnimated } from '@/components/landing/LogoClouds';
 
 const features = [
     {
@@ -48,11 +48,11 @@ export default function Home() {
                 </div>
             </nav>
 
-            <HeroSection />
+            <HeroShowcase />
 
             <FeatureSection features={features} />
 
-            <LogoClouds />
+            <LogoCloudAnimated />
 
             <div className="border-t bg-secondary/50 py-16">
                 <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">

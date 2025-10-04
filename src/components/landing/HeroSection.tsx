@@ -1,45 +1,96 @@
-import { ArrowRight } from 'lucide-react';
-import Link from 'next/link';
+'use client';
 
-export const HeroSection = () => (
-    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-32">
-        <div className="text-center">
-            <h1 className="mb-6 font-extrabold text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl">
-                Islamic Libraries,
-                <span className="block bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
-                    One Unified API
-                </span>
-            </h1>
-            <p className="mx-auto mb-10 max-w-2xl text-foreground/80 text-lg sm:text-xl">
-                Access Shamela, Ketab Online, and Turath heritage libraries through a single, powerful API. Build
-                Islamic applications faster than ever before.
-            </p>
-            <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link
-                    href="/auth/signup"
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-md bg-primary px-8 py-3 font-semibold text-lg text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
-                >
-                    Get Started Free
-                    <ArrowRight className="h-5 w-5" />
-                </Link>
-                <Link
-                    href="/pricing"
-                    className="inline-flex w-full items-center justify-center rounded-md border border-input bg-background px-8 py-3 font-semibold text-lg transition-colors hover:bg-secondary sm:w-auto"
-                >
-                    View Pricing
-                </Link>
-            </div>
-        </div>
+import { ArrowDownRight, Star } from 'lucide-react';
+import { motion } from 'motion/react';
+import Image from 'next/image';
+import { AnimatedGroup } from '@/components/landing/animated-group';
+import { AnimatedText } from '@/components/landing/animated-text';
+import { Button } from '@/components/ui/button';
 
-        <div className="mt-16 rounded-lg border bg-card p-4 shadow-2xl">
-            <div className="rounded bg-muted p-4 font-mono text-sm">
-                <div className="mb-2 text-foreground/60">
-                    <span className="text-green-500">GET</span> /api/v1/books/333?provider=shamela.ws
+interface HeroShowcaseProps {
+    heading?: string;
+    description?: string;
+    buttons?: { primary?: { text: string; url: string }; secondary?: { text: string; url: string } };
+    reviews?: { count: number; rating?: number };
+    backgroundOpacity?: number;
+}
+
+export function HeroShowcase({
+    heading = 'Build beautiful UIs, effortlessly.',
+    description = 'Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.',
+    buttons = { primary: { text: 'Get Started', url: '#link' }, secondary: { text: 'Watch demo', url: '#link' } },
+    reviews = { count: 200, rating: 5.0 },
+    backgroundOpacity = 0.15,
+}: HeroShowcaseProps) {
+    return (
+        <main>
+            <motion.section
+                className="relative overflow-hidden bg-gradient-to-b from-background to-muted"
+                initial={{ filter: 'blur(12px)', opacity: 0, scale: 1.04 }}
+                animate={{ filter: 'blur(0px)', opacity: 1, scale: 1 }}
+                transition={{ bounce: 0.32, duration: 0.9, type: 'spring' }}
+            >
+                {/* Background Image */}
+                <div className="absolute inset-0 z-0">
+                    <Image
+                        src="/hero.jpg"
+                        alt="Hero background"
+                        fill
+                        className="object-cover object-center"
+                        style={{ height: '100%', objectFit: 'cover', opacity: backgroundOpacity, width: '100%' }}
+                        priority
+                    />
                 </div>
-                <div className="text-foreground/60">
-                    <span className="text-blue-500">Authorization:</span> Bearer aj_your_api_key
+
+                {/* Content */}
+                <div className="relative z-10 mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 lg:grid-cols-1">
+                    <AnimatedGroup
+                        preset="blur-slide"
+                        className="mx-auto flex flex-col items-center text-center lg:max-w-3xl"
+                    >
+                        <AnimatedText as="h1" className="my-6 text-pretty font-bold text-4xl lg:text-6xl xl:text-7xl">
+                            {heading}
+                        </AnimatedText>
+                        <AnimatedText as="p" className="mb-8 max-w-xl text-foreground/70 lg:text-xl" delay={0.12}>
+                            {description}
+                        </AnimatedText>
+                        <AnimatedGroup
+                            preset="slide"
+                            className="mb-12 flex w-fit flex-col items-center gap-4 sm:flex-row"
+                        >
+                            <div>
+                                <div className="flex items-center gap-1">
+                                    {[1, 2, 3, 4, 5].map((starNumber) => (
+                                        <Star
+                                            key={`star-${starNumber}`}
+                                            className="size-5 fill-yellow-400 text-yellow-400"
+                                        />
+                                    ))}
+                                    <span className="mr-1 font-semibold">{reviews.rating?.toFixed(1)}</span>
+                                </div>
+                                <p className="text-left font-medium text-foreground/70">
+                                    from {reviews.count}+ reviews
+                                </p>
+                            </div>
+                        </AnimatedGroup>
+                        <AnimatedGroup preset="slide" className="flex w-full flex-col justify-center gap-2 sm:flex-row">
+                            {buttons.primary && (
+                                <Button asChild variant="default" className="w-full sm:w-auto">
+                                    <a href={buttons.primary.url}>{buttons.primary.text}</a>
+                                </Button>
+                            )}
+                            {buttons.secondary && (
+                                <Button asChild variant="outline">
+                                    <a href={buttons.secondary.url}>
+                                        {buttons.secondary.text}
+                                        <ArrowDownRight className="size-4" />
+                                    </a>
+                                </Button>
+                            )}
+                        </AnimatedGroup>
+                    </AnimatedGroup>
                 </div>
-            </div>
-        </div>
-    </section>
-);
+            </motion.section>
+        </main>
+    );
+}

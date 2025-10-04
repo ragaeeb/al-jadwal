@@ -36,7 +36,7 @@ export const ERROR_MESSAGES = {
     RATE_LIMIT: 'Rate limit exceeded. Please try again later',
     SERVER_ERROR: 'An unexpected error occurred. Please try again',
     UNAUTHORIZED: 'You must be logged in to access this resource',
-} as const;
+};
 
 export const SUCCESS_MESSAGES = {
     API_KEY_CREATED: 'API key created successfully',

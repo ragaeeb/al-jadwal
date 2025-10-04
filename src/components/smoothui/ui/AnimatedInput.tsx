@@ -1,19 +1,9 @@
 import { motion } from 'motion/react';
-import { useRef, useState } from 'react';
-
-const SPRING = {
-    // Damping controls how quickly the spring comes to rest (higher = less oscillation)
-    damping: 10,
-    // Mass affects the weight of the spring (higher = slower, heavier motion)
-    mass: 0.75,
-    // Stiffness controls the tension of the spring (higher = snappier, lower = softer)
-    stiffness: 100,
-    type: 'spring',
-};
+import { useId, useRef, useState } from 'react';
 
 const LABEL_TRANSITION = {
     duration: 0.28,
-    ease: [0.4, 0, 0.2, 1], // standard material easing
+    ease: [0.4, 0, 0.2, 1] as [number, number, number, number], // standard material easing
 };
 
 export interface AnimatedInputProps {
@@ -27,6 +17,7 @@ export interface AnimatedInputProps {
     inputClassName?: string;
     labelClassName?: string;
     icon?: React.ReactNode;
+    id?: string;
 }
 
 export default function AnimatedInput({
@@ -40,6 +31,7 @@ export default function AnimatedInput({
     inputClassName = '',
     labelClassName = '',
     icon,
+    id,
 }: AnimatedInputProps) {
     const [internalValue, setInternalValue] = useState(defaultValue);
     const isControlled = value !== undefined;
@@ -48,11 +40,16 @@ export default function AnimatedInput({
     const [isFocused, setIsFocused] = useState(false);
     const isFloating = !!val || isFocused;
 
+    // Generate a unique ID for accessibility
+    const generatedId = useId();
+    const inputId = id || generatedId;
+
     return (
         <div className={`relative flex items-center ${className}`}>
             {icon && <span className="-translate-y-1/2 absolute top-1/2 left-3">{icon}</span>}
             <input
                 ref={inputRef}
+                id={inputId}
                 type="text"
                 value={val}
                 onChange={(e) => {
@@ -68,6 +65,7 @@ export default function AnimatedInput({
                 onBlur={() => setIsFocused(false)}
             />
             <motion.label
+                htmlFor={inputId}
                 className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
                 animate={
                     isFloating

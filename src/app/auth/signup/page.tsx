@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AnimatedInput from '@/components/smoothui/ui/AnimatedInput';
-import PowerOffSlide from '@/components/smoothui/ui/PowerOffSlide';
+import { PowerOffSlide } from '@/components/smoothui/ui/PowerOffSlide';
 import { Input } from '@/components/ui/input';
 import { createClient } from '@/lib/supabase/client';
 

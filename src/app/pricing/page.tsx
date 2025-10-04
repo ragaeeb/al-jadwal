@@ -1,6 +1,7 @@
 import { ArrowLeft, BookOpen, Check } from 'lucide-react';
 import Link from 'next/link';
 import { Footer } from '@/components/landing/Footer';
+import { PricingTiers } from '@/components/PricingTiers';
 
 type PricingTier = {
     name: string;
@@ -85,70 +86,7 @@ export default function Pricing() {
                 </div>
             </nav>
 
-            <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-                <div className="mb-16 text-center">
-                    <h1 className="mb-4 font-extrabold text-4xl tracking-tight sm:text-5xl">
-                        Simple, Transparent Pricing
-                    </h1>
-                    <p className="text-foreground/80 text-lg">
-                        Choose the perfect plan for your needs. Upgrade or downgrade anytime.
-                    </p>
-                </div>
-
-                <div className="grid gap-8 lg:grid-cols-3">
-                    {tiers.map((tier) => (
-                        <div
-                            key={tier.name}
-                            className={`relative flex flex-col rounded-lg border p-8 shadow-sm transition-shadow hover:shadow-md ${
-                                tier.highlighted
-                                    ? 'border-primary bg-primary/5 ring-2 ring-primary ring-offset-2'
-                                    : 'bg-card'
-                            }`}
-                        >
-                            {tier.highlighted && (
-                                <div className="-top-4 -translate-x-1/2 absolute left-1/2 rounded-full bg-primary px-4 py-1 font-semibold text-primary-foreground text-sm">
-                                    Most Popular
-                                </div>
-                            )}
-
-                            <div className="mb-6">
-                                <h3 className="mb-2 font-bold text-2xl">{tier.name}</h3>
-                                <div className="mb-2 flex items-baseline gap-1">
-                                    <span className="font-bold text-4xl">{tier.price}</span>
-                                    <span className="text-foreground/60 text-sm">/month</span>
-                                </div>
-                                <p className="text-foreground/80 text-sm">{tier.description}</p>
-                            </div>
-
-                            <ul className="mb-8 flex-1 space-y-3">
-                                {tier.features.map((feature) => (
-                                    <li key={feature} className="flex items-start gap-3">
-                                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary" />
-                                        <span className="text-sm">{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Link
-                                href="/auth/signup"
-                                className={`inline-flex items-center justify-center rounded-md px-6 py-3 text-center font-semibold transition-colors ${
-                                    tier.highlighted
-                                        ? 'bg-primary text-primary-foreground hover:bg-primary/90'
-                                        : 'border border-input bg-background hover:bg-secondary'
-                                }`}
-                            >
-                                {tier.cta}
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-
-                <div className="mt-16 text-center">
-                    <p className="text-foreground/60 text-sm">
-                        All plans include access to our API documentation and community support.
-                    </p>
-                </div>
-            </section>
+            <PricingTiers />
 
             <Footer />
         </div>

@@ -25,32 +25,34 @@ const LibrarySelector = ({
     libraries: typeof LIBRARIES;
     selectedLibraries: Library[];
     onToggle: (library: Library) => void;
-}) => (
-    <div className="space-y-4">
-        {libraries.map((library) => (
-            <Card key={library.value} className={selectedLibraries.includes(library.value) ? 'border-primary' : ''}>
-                <CardHeader>
-                    <div className="flex items-start justify-between">
-                        <div className="flex items-start gap-3">
-                            <Checkbox
-                                checked={selectedLibraries.includes(library.value)}
-                                onCheckedChange={() => onToggle(library.value)}
-                                id={library.value}
-                            />
-                            <div>
-                                <Label htmlFor={library.value} className="cursor-pointer font-semibold text-base">
-                                    {library.label}
-                                </Label>
-                                <CardDescription className="mt-1">{library.description}</CardDescription>
+}) => {
+    return (
+        <div className="space-y-4">
+            {libraries.map((library) => (
+                <Card key={library.value} className={selectedLibraries.includes(library.value) ? 'border-primary' : ''}>
+                    <CardHeader>
+                        <div className="flex items-start justify-between">
+                            <div className="flex items-start gap-3">
+                                <Checkbox
+                                    checked={selectedLibraries.includes(library.value)}
+                                    onCheckedChange={() => onToggle(library.value)}
+                                    id={library.value}
+                                />
+                                <div>
+                                    <Label htmlFor={library.value} className="cursor-pointer font-semibold text-base">
+                                        {library.label}
+                                    </Label>
+                                    <CardDescription className="mt-1">{library.description}</CardDescription>
+                                </div>
                             </div>
+                            {selectedLibraries.includes(library.value) && <Check className="h-5 w-5 text-primary" />}
                         </div>
-                        {selectedLibraries.includes(library.value) && <Check className="h-5 w-5 text-primary" />}
-                    </div>
-                </CardHeader>
-            </Card>
-        ))}
-    </div>
-);
+                    </CardHeader>
+                </Card>
+            ))}
+        </div>
+    );
+};
 
 export default function NewAppPage() {
     const [name, setName] = useState('');
@@ -78,16 +80,14 @@ export default function NewAppPage() {
         setError(null);
 
         try {
-            // TODO: Replace with actual API call
-            // const response = await fetch('/api/apps', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify({ name, description, libraries: selectedLibraries })
-            // });
-            // const data = await response.json();
+            const response = await fetch('/api/apps', {
+                body: JSON.stringify({ description, libraries: selectedLibraries, name }),
+                headers: { 'Content-Type': 'application/json' },
+                method: 'POST',
+            });
+            const data = await response.json();
 
-            // Mock success
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            console.log('Result', data);
             router.push('/dashboard/apps');
             router.refresh();
         } catch (err) {
