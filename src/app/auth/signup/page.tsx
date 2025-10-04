@@ -45,7 +45,7 @@ export default function SignupPage() {
                     <p className="mt-2 text-muted-foreground">Create your account</p>
                 </div>
 
-                <form onSubmit={handleAuth} className="mt-8 space-y-6">
+                <form onSubmit={(e) => { e.preventDefault(); handleAuth(); }} className="mt-8 space-y-6">
                     <div className="space-y-4">
                         <AnimatedInput
                             aria-label="Email address"
