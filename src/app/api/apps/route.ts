@@ -20,12 +20,14 @@ export async function GET() {
             .order('created_at', { ascending: false });
 
         if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 });
+            console.error('Database error:', error);
+            return NextResponse.json({ error: 'Failed to fetch apps' }, { status: 500 });
         }
 
         return NextResponse.json({ apps });
     } catch (error) {
         console.error(error);
+
         return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
     }
 }
@@ -56,7 +58,8 @@ export async function POST(request: NextRequest) {
             .single();
 
         if (error) {
-            return NextResponse.json({ error: error.message }, { status: 500 });
+            console.error('Database error:', error);
+            return NextResponse.json({ error: 'Failed to create app' }, { status: 500 });
         }
 
         return NextResponse.json({ app }, { status: 201 });

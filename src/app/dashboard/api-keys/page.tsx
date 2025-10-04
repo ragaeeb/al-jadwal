@@ -46,7 +46,7 @@ const ApiKeyRow = ({
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
-        navigator.clipboard.writeText(`${apiKey.key_prefix}${'•'.repeat(32)}`);
+        navigator.clipboard.writeText(apiKey.key_prefix);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };

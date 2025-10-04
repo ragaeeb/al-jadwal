@@ -54,11 +54,6 @@ export const middleware = async (request: NextRequest) => {
         url.pathname = '/auth/login';
         return NextResponse.redirect(url);
     }
-    }
 
     return supabaseResponse;
-};
-
-export const config = {
-    matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 };

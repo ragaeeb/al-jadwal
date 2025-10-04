@@ -80,7 +80,7 @@ bun dev
 
 ## Architecture Overview
 
-```
+```text
 User Flow:
 1. Sign up/Login → Supabase Auth
 2. Create App → Select libraries (Shamela, Ketab, Turath)
