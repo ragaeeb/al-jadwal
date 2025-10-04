@@ -1,5 +1,16 @@
 import type { ApiKey, App, Library } from '@/types';
 
+class ApiError extends Error {
+    constructor(
+        public status: number,
+        message: string,
+        public responseBody?: unknown,
+    ) {
+        super(message);
+        this.name = 'ApiError';
+    }
+}
+
 class ApiClient {
     private baseUrl: string;
 
@@ -14,8 +25,14 @@ class ApiClient {
         });
 
         if (!response.ok) {
-            const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-            throw new Error(error.error || 'Request failed');
+            const errorBody = await response.text();
+            let parsedError: { error?: string } = { error: 'Request failed' };
+            try {
+                parsedError = JSON.parse(errorBody);
+            } catch {
+                // Non-JSON error response
+            }
+            throw new ApiError(response.status, parsedError.error || 'Request failed', errorBody);
         }
 
         return response.json();

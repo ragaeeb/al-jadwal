@@ -23,7 +23,7 @@ export function HeroShowcase({
     backgroundOpacity = 0.15,
 }: HeroShowcaseProps) {
     return (
-        <main>
+        <section>
             <motion.section
                 className="relative overflow-hidden bg-gradient-to-b from-background to-muted"
                 initial={{ filter: 'blur(12px)', opacity: 0, scale: 1.04 }}
@@ -91,6 +91,6 @@ export function HeroShowcase({
                     </AnimatedGroup>
                 </div>
             </motion.section>
-        </main>
+        </section>
     );
 }

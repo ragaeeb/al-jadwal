@@ -26,6 +26,14 @@ create table public.api_keys (
 
 -- Indexes
 create index apps_user_id_idx on public.apps(user_id);
+
+-- Unique app names per user
+create unique index apps_user_id_name_idx on public.apps(user_id, lower(name));
+
+-- Name validation
+alter table public.apps add constraint apps_name_length check (length(name) between 1 and 255);
+
+
 create index api_keys_app_id_idx on public.api_keys(app_id);
 create index api_keys_key_id_idx on public.api_keys(key_id);
 

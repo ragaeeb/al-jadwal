@@ -11,7 +11,7 @@
 
 ### 1. Create Production Project
 
-1. Go to https://supabase.com/dashboard
+1. Go to <https://supabase.com/dashboard>
 2. Click "New Project"
 3. Choose organization and region
 4. Set strong database password
@@ -49,7 +49,7 @@
 
 ### 1. Create Production API
 
-1. Go to https://unkey.dev/dashboard
+1. Go to <https://unkey.dev/dashboard>
 2. Create new API
 3. Name it "Al-Jadwal Production"
 
@@ -347,7 +347,7 @@ vercel rollback [deployment-url]
 
 ### Common Issues
 
-**Issue: 500 errors**
+#### Issue: 500 errors**
 - Check environment variables
 - Review Vercel logs
 - Verify database connection

@@ -5,7 +5,7 @@
 ### 1. Authentication Flow
 
 #### Sign Up
-```
+```bash
 1. Navigate to http://localhost:3000
 2. Should redirect to /auth/login
 3. Click "Sign up" link
@@ -207,8 +207,9 @@ SELECT * FROM apps WHERE user_id = 'user_id_here';
 
 #### Requests
 
-**1. List Apps**
-```
+#### 1. List Apps**
+
+```http
 GET {{base_url}}/api/apps
 ```
 

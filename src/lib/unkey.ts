@@ -1,4 +1,5 @@
 import type { Library } from '@/types';
+import { API_KEY_PREFIX } from './constants';
 
 const UNKEY_API_URL = 'https://api.unkey.dev';
 const UNKEY_ROOT_KEY = process.env.UNKEY_ROOT_KEY!;
@@ -17,13 +18,14 @@ interface VerifyApiKeyResponse {
 
 export const createApiKey = async (appId: string, libraries: Library[]): Promise<CreateApiKeyResponse> => {
     const response = await fetch(`${UNKEY_API_URL}/v1/keys.createKey`, {
-        body: JSON.stringify({ apiId: UNKEY_API_ID, meta: { appId, libraries }, prefix: 'aj' }),
+        body: JSON.stringify({ apiId: UNKEY_API_ID, meta: { appId, libraries }, prefix: API_KEY_PREFIX.slice(0, -1) }),
         headers: { Authorization: `Bearer ${UNKEY_ROOT_KEY}`, 'Content-Type': 'application/json' },
         method: 'POST',
     });
 
     if (!response.ok) {
-        throw new Error('Failed to create API key with Unkey');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Failed to create API key with Unkey: ${errorData.message || response.statusText}`);
     }
 
     const data = await response.json();
@@ -54,6 +56,7 @@ export const revokeApiKey = async (keyId: string): Promise<void> => {
     });
 
     if (!response.ok) {
-        throw new Error('Failed to revoke API key with Unkey');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(`Failed to revoke key with Unkey: ${errorData.message || response.statusText}`);
     }
 };

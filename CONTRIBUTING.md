@@ -92,7 +92,7 @@ Follow conventional commits:
 - `chore:` Maintenance tasks
 
 Examples:
-```
+```text
 feat: add support for new Islamic library
 fix: resolve authentication redirect loop
 docs: update API documentation
@@ -157,7 +157,7 @@ const BookCard = ({ book, onSelect }: BookCardProps) => {
 
 ### File Organization
 
-```
+```text
 src/
 ├── app/              # Next.js app router
 │   ├── api/         # API routes
@@ -396,7 +396,6 @@ Include:
 
 - Open an issue for questions
 - Join discussions on GitHub
-- Email: ragaeeb@gmail.com
 
 ## License
 

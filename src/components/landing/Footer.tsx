@@ -43,7 +43,7 @@ export function Footer({
         linkedin: 'https://linkedin.com',
         twitter: 'https://twitter.com',
     },
-    copyright = '© 2024 Smoothui. All rights reserved.',
+    copyright = `© ${new Date().getFullYear()} Al-Jadwal. All rights reserved.`,
 }: FooterSimpleProps) {
     return (
         <footer className="border-border border-t bg-background">

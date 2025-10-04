@@ -25,20 +25,35 @@ export const useApps = () => {
     }, [fetchApps]);
 
     const createApp = async (data: { name: string; description?: string; libraries: Library[] }) => {
-        const { app } = await apiClient.createApp(data);
-        setApps((prev) => [app, ...prev]);
-        return app;
+        try {
+            const { app } = await apiClient.createApp(data);
+            setApps((prev) => [app, ...prev]);
+            return app;
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to create app');
+            throw err;
+        }
     };
 
     const updateApp = async (id: string, data: Partial<Pick<App, 'name' | 'description' | 'libraries'>>) => {
-        const { app } = await apiClient.updateApp(id, data);
-        setApps((prev) => prev.map((a) => (a.id === id ? app : a)));
-        return app;
+        try {
+            const { app } = await apiClient.updateApp(id, data);
+            setApps((prev) => prev.map((a) => (a.id === id ? app : a)));
+            return app;
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to update app');
+            throw err;
+        }
     };
 
     const deleteApp = async (id: string) => {
-        await apiClient.deleteApp(id);
-        setApps((prev) => prev.filter((a) => a.id !== id));
+        try {
+            await apiClient.deleteApp(id);
+            setApps((prev) => prev.filter((a) => a.id !== id));
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to delete app');
+            throw err;
+        }
     };
 
     return { apps, createApp, deleteApp, error, loading, refetch: fetchApps, updateApp };

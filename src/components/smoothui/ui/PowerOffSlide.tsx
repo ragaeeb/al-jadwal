@@ -2,7 +2,7 @@
 
 import { Power } from 'lucide-react';
 import { motion, useAnimation, useAnimationFrame, useMotionValue } from 'motion/react';
-import { type RefObject, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export type PowerOffSlideProps = {
     onPowerOff?: () => void;
@@ -26,7 +26,7 @@ export const PowerOffSlide = ({
     const x = useMotionValue(0);
     const controls = useAnimation();
     const constraintsRef = useRef(null);
-    const textRef: RefObject<HTMLDivElement | null> = useRef(null);
+    const textRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setIsMounted(true);

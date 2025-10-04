@@ -413,9 +413,3 @@ Receive notifications for events:
 - Initial release
 - Support for Shamela, Ketab Online, and Turath
 - Basic book retrieval endpoint
-
-## Support
-
-- Documentation: https://docs.al-jadwal.com
-- Email: support@al-jadwal.com
-- GitHub: https://github.com/ragaeeb/al-jadwal
