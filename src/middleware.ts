@@ -47,10 +47,13 @@ export const middleware = async (request: NextRequest) => {
     }
 
     // Redirect unauthenticated users to login (except for auth pages and public routes)
-    if (!user && !isAuthRoute && !isPublicRoute) {
+    const isApiRoute = request.nextUrl.pathname.startsWith('/api/');
+
+    if (!user && !isAuthRoute && !isPublicRoute && !isApiRoute) {
         const url = request.nextUrl.clone();
         url.pathname = '/auth/login';
         return NextResponse.redirect(url);
+    }
     }
 
     return supabaseResponse;
