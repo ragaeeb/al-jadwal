@@ -10,8 +10,8 @@ interface LogoCloudAnimatedProps {
 }
 
 export function LogoCloudAnimated({
-    title = "Trusted by the world's most innovative teams",
-    description = 'Join thousands of developers and designers who are already building with Smoothui',
+    title = "Trusted by Islamic app developers",
+    description = 'Join developers building with Al-Jadwal to access Shamela, Ketab Online, and heritage libraries',
     logos = [
         { name: 'Islam Archive', src: '/islamarchive.svg', url: 'https://example.com' },
         { name: 'Ketab Online', src: '/ketabonline.svg', url: 'https://example.com' },
