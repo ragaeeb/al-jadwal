@@ -87,7 +87,11 @@ export default function NewAppPage() {
             });
             const data = await response.json();
 
-            console.log('Result', data);
+            if (!response.ok) {
+                setError(data?.error ?? 'Failed to create app');
+                return;
+            }
+
             router.push('/dashboard/apps');
             router.refresh();
         } catch (err) {
