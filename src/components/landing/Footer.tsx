@@ -15,8 +15,8 @@ interface FooterSimpleProps {
 }
 
 export function Footer({
-    companyName = 'Smoothui',
-    description = 'Build beautiful UIs, effortlessly.',
+    companyName = 'Al-Jadwal',
+    description = 'Access Islamic heritage libraries through a unified API.',
     links = {
         company: [
             { name: 'About', url: '#about' },
