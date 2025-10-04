@@ -31,8 +31,13 @@ export const useApiKeys = () => {
     };
 
     const deleteApiKey = async (id: string) => {
-        await apiClient.deleteApiKey(id);
-        setApiKeys((prev) => prev.filter((k) => k.id !== id));
+        try {
+            await apiClient.deleteApiKey(id);
+            setApiKeys((prev) => prev.filter((k) => k.id !== id));
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to delete API key');
+            throw err;
+        }
     };
 
     return { apiKeys, createApiKey, deleteApiKey, error, loading, refetch: fetchApiKeys };
