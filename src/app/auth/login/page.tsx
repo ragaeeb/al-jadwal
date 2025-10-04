@@ -1,10 +1,11 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AnimatedInput from '@/components/smoothui/ui/AnimatedInput';
-import PowerOffSlide from '@/components/smoothui/ui/PowerOffSlide';
+import { PowerOffSlide } from '@/components/smoothui/ui/PowerOffSlide';
 import { Input } from '@/components/ui/input';
 import { createClient } from '@/lib/supabase/client';
 
@@ -26,7 +27,7 @@ export default function LoginPage() {
             if (error) {
                 throw error;
             }
-            router.push('/');
+            router.push('/dashboard');
             router.refresh();
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An unexpected error occurred');
@@ -69,6 +70,13 @@ export default function LoginPage() {
                     {successMessage && <div className="text-green-600 text-sm">{successMessage}</div>}
                     {error && <div className="text-red-600 text-sm">{error}</div>}
                     <PowerOffSlide onPowerOff={handleAuth} label="Slide to log in" powerOffLabel="Logging in..." />
+
+                    <div className="text-center text-muted-foreground text-sm">
+                        Don't have an account?{' '}
+                        <Link href="/auth/signup" className="text-primary hover:underline">
+                            Sign up
+                        </Link>
+                    </div>
                 </form>
             </div>
         </div>

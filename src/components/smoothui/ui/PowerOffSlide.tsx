@@ -2,30 +2,35 @@
 
 import { Power } from 'lucide-react';
 import { motion, useAnimation, useAnimationFrame, useMotionValue } from 'motion/react';
-import { type RefObject, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-export interface PowerOffSlideProps {
+export type PowerOffSlideProps = {
     onPowerOff?: () => void;
     label?: string;
     className?: string;
     duration?: number;
     disabled?: boolean;
     powerOffLabel: string;
-}
+};
 
-export default function PowerOffSlide({
+export const PowerOffSlide = ({
     onPowerOff,
     label = 'Slide to power off',
     className = '',
     duration = 2000,
     disabled = false,
     powerOffLabel = 'Shutting down...',
-}: PowerOffSlideProps) {
+}: PowerOffSlideProps) => {
     const [isPoweringOff, setIsPoweringOff] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
     const x = useMotionValue(0);
     const controls = useAnimation();
     const constraintsRef = useRef(null);
-    const textRef: RefObject<HTMLDivElement | null> = useRef(null);
+    const textRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     useAnimationFrame((t) => {
         const animDuration = duration;
@@ -36,7 +41,7 @@ export default function PowerOffSlide({
     });
 
     const handleDragEnd = async () => {
-        if (disabled) {
+        if (disabled || !isMounted) {
             return;
         }
         const dragDistance = x.get();
@@ -48,8 +53,10 @@ export default function PowerOffSlide({
             }
             setTimeout(() => {
                 setIsPoweringOff(false);
-                controls.start({ x: 0 });
-                x.set(0);
+                if (isMounted) {
+                    controls.start({ x: 0 });
+                    x.set(0);
+                }
             }, duration);
         } else {
             controls.start({ x: 0 });
@@ -69,7 +76,10 @@ export default function PowerOffSlide({
                         className="relative h-14 overflow-hidden rounded-full border bg-secondary"
                     >
                         <div className="absolute inset-0 left-8 z-0 flex items-center justify-center overflow-hidden">
-                            <div className="loading-shimmer relative w-full select-none text-center font-normal text-foreground text-md">
+                            <div
+                                ref={textRef}
+                                className="loading-shimmer relative w-full select-none text-center font-normal text-foreground text-md"
+                            >
                                 {label}
                             </div>
                         </div>
@@ -92,4 +102,4 @@ export default function PowerOffSlide({
             </div>
         </div>
     );
-}
+};
